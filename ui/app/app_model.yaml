@@ -1,0 +1,503 @@
+about:
+  date: October 18, 2024 22:05:00
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+entities:
+  BloodVessel:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: organ_id
+      template: integer
+      type: INTEGER
+    - name: Type
+      template: text
+      type: VARCHAR
+    - name: diameter
+      template: real
+      type: FLOAT
+    description: Represents blood vessels connecting organs for nutrient transport.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Represents blood vessels connecting organs for nutrient transport.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - organ_id
+      name: organ
+      resource: Organ
+    type: BloodVessel
+  Bone:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: organism_id
+      template: integer
+      type: INTEGER
+    - name: length
+      template: real
+      type: FLOAT
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Represents bones within an organism, detailing its characteristics.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Represents bones within an organism, detailing its characteristics.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - connecting_bone_1_id
+      name: JointList
+      resource: Joint
+    - direction: tomany
+      fks:
+      - connecting_bone_2_id
+      name: connecting_bone_2JointList
+      resource: Joint
+    - direction: tomany
+      fks:
+      - bone_id
+      name: MuscleList
+      resource: Muscle
+    - direction: toone
+      fks:
+      - organism_id
+      name: organism
+      resource: Organism
+    type: Bone
+  Cell:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: tissue_id
+      template: integer
+      type: INTEGER
+    - name: Type
+      template: text
+      type: VARCHAR
+    - name: function
+      template: text
+      type: VARCHAR
+    description: Represents cells within tissues, detailing their functions.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Represents cells within tissues, detailing their functions.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - tissue_id
+      name: tissue
+      resource: Tissue
+    type: Cell
+  Joint:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: connecting_bone_1_id
+      template: integer
+      type: INTEGER
+    - name: connecting_bone_2_id
+      template: integer
+      type: INTEGER
+    - name: Type
+      template: text
+      type: VARCHAR
+    description: Represents joints connecting different bones.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Represents joints connecting different bones.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - connecting_bone_1_id
+      name: connecting_bone_1
+      resource: Bone
+    - direction: toone
+      fks:
+      - connecting_bone_2_id
+      name: connecting_bone_2
+      resource: Bone
+    type: Joint
+  Limb:
+    columns:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: organism_id
+      template: integer
+      type: INTEGER
+    - name: strength
+      template: real
+      type: FLOAT
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Represents limbs of organisms, composed of bones and muscles.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Represents limbs of organisms, composed of bones and muscles.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - organism_id
+      name: organism
+      resource: Organism
+    type: Limb
+  Muscle:
+    columns:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: bone_id
+      template: integer
+      type: INTEGER
+    - name: strength
+      template: real
+      type: FLOAT
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Represents muscles in the organism, associated with certain bones.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Represents muscles in the organism, associated with certain bones.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - bone_id
+      name: bone
+      resource: Bone
+    type: Muscle
+  Nerve:
+    columns:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: organ_id
+      template: integer
+      type: INTEGER
+    - name: path
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Represents nerves connecting different organs for signal transmission.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Represents nerves connecting different organs for signal transmission.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - nerve_id
+      name: SenseOrganList
+      resource: SenseOrgan
+    - direction: toone
+      fks:
+      - organ_id
+      name: organ
+      resource: Organ
+    type: Nerve
+  Organ:
+    columns:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: system_id
+      template: integer
+      type: INTEGER
+    - name: size
+      template: real
+      type: FLOAT
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Represents organs forming part of the organ systems.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Represents organs forming part of the organ systems.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - organ_id
+      name: BloodVesselList
+      resource: BloodVessel
+    - direction: tomany
+      fks:
+      - organ_id
+      name: NerveList
+      resource: Nerve
+    - direction: toone
+      fks:
+      - system_id
+      name: system
+      resource: OrganSystem
+    type: Organ
+  OrganSystem:
+    columns:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: organism_id
+      template: integer
+      type: INTEGER
+    - name: function
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Represents systems within the organism comprising various tissues.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Represents systems within the organism comprising various tissues.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - system_id
+      name: OrganList
+      resource: Organ
+    - direction: toone
+      fks:
+      - organism_id
+      name: organism
+      resource: Organism
+    type: OrganSystem
+  Organism:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: species
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Represents different organisms in a database, such as animals or
+      humans.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Represents different organisms in a database, such as animals or humans.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - organism_id
+      name: BoneList
+      resource: Bone
+    - direction: tomany
+      fks:
+      - organism_id
+      name: LimbList
+      resource: Limb
+    - direction: tomany
+      fks:
+      - organism_id
+      name: OrganSystemList
+      resource: OrganSystem
+    - direction: tomany
+      fks:
+      - organism_id
+      name: TissueList
+      resource: Tissue
+    type: Organism
+  SenseOrgan:
+    columns:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: nerve_id
+      template: integer
+      type: INTEGER
+    - name: sensitivity
+      template: real
+      type: FLOAT
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Represents sense organs linked to nerve systems.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Represents sense organs linked to nerve systems.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - nerve_id
+      name: nerve
+      resource: Nerve
+    type: SenseOrgan
+  Tissue:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: organism_id
+      template: integer
+      type: INTEGER
+    - name: Type
+      template: text
+      type: VARCHAR
+    - name: coverage_area
+      template: real
+      type: FLOAT
+    description: Represents various tissue types in organisms.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Represents various tissue types in organisms.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - tissue_id
+      name: CellList
+      resource: Cell
+    - direction: toone
+      fks:
+      - organism_id
+      name: organism
+      resource: Organism
+    type: Tissue
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    edit_on_mode: dblclick
+    include_translation: false
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    mode: tab
+    pick_style: list
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: false

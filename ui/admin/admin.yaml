@@ -1,0 +1,331 @@
+about:
+  date: October 18, 2024 22:05:00
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 12
+  number_tables: 12
+info_toggle_checked: true
+resources:
+  BloodVessel:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: organ_id
+    - name: Type
+    - name: diameter
+    description: Represents blood vessels connecting organs for nutrient transport.
+    info_list: Represents blood vessels connecting organs for nutrient transport.
+    tab_groups:
+    - direction: toone
+      fks:
+      - organ_id
+      name: organ
+      resource: Organ
+    type: BloodVessel
+    user_key: id
+  Bone:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: organism_id
+    - name: length
+    - name: id
+    description: Represents bones within an organism, detailing its characteristics.
+    info_list: Represents bones within an organism, detailing its characteristics.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - connecting_bone_1_id
+      name: JointList
+      resource: Joint
+    - direction: tomany
+      fks:
+      - connecting_bone_2_id
+      name: connecting_bone_2JointList
+      resource: Joint
+    - direction: tomany
+      fks:
+      - bone_id
+      name: MuscleList
+      resource: Muscle
+    - direction: toone
+      fks:
+      - organism_id
+      name: organism
+      resource: Organism
+    type: Bone
+    user_key: name
+  Cell:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: tissue_id
+    - name: Type
+    - name: function
+    description: Represents cells within tissues, detailing their functions.
+    info_list: Represents cells within tissues, detailing their functions.
+    tab_groups:
+    - direction: toone
+      fks:
+      - tissue_id
+      name: tissue
+      resource: Tissue
+    type: Cell
+    user_key: id
+  Joint:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: connecting_bone_1_id
+    - name: connecting_bone_2_id
+    - name: Type
+    description: Represents joints connecting different bones.
+    info_list: Represents joints connecting different bones.
+    tab_groups:
+    - direction: toone
+      fks:
+      - connecting_bone_1_id
+      name: connecting_bone_1
+      resource: Bone
+    - direction: toone
+      fks:
+      - connecting_bone_2_id
+      name: connecting_bone_2
+      resource: Bone
+    type: Joint
+    user_key: id
+  Limb:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: organism_id
+    - name: strength
+    - name: id
+    description: Represents limbs of organisms, composed of bones and muscles.
+    info_list: Represents limbs of organisms, composed of bones and muscles.
+    tab_groups:
+    - direction: toone
+      fks:
+      - organism_id
+      name: organism
+      resource: Organism
+    type: Limb
+    user_key: name
+  Muscle:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: bone_id
+    - name: strength
+    - name: id
+    description: Represents muscles in the organism, associated with certain bones.
+    info_list: Represents muscles in the organism, associated with certain bones.
+    tab_groups:
+    - direction: toone
+      fks:
+      - bone_id
+      name: bone
+      resource: Bone
+    type: Muscle
+    user_key: name
+  Nerve:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: organ_id
+    - name: path
+    - name: id
+    description: Represents nerves connecting different organs for signal transmission.
+    info_list: Represents nerves connecting different organs for signal transmission.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - nerve_id
+      name: SenseOrganList
+      resource: SenseOrgan
+    - direction: toone
+      fks:
+      - organ_id
+      name: organ
+      resource: Organ
+    type: Nerve
+    user_key: name
+  Organ:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: system_id
+    - name: size
+    - name: id
+    description: Represents organs forming part of the organ systems.
+    info_list: Represents organs forming part of the organ systems.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - organ_id
+      name: BloodVesselList
+      resource: BloodVessel
+    - direction: tomany
+      fks:
+      - organ_id
+      name: NerveList
+      resource: Nerve
+    - direction: toone
+      fks:
+      - system_id
+      name: system
+      resource: OrganSystem
+    type: Organ
+    user_key: name
+  OrganSystem:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: organism_id
+    - name: function
+    - name: id
+    description: Represents systems within the organism comprising various tissues.
+    info_list: Represents systems within the organism comprising various tissues.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - system_id
+      name: OrganList
+      resource: Organ
+    - direction: toone
+      fks:
+      - organism_id
+      name: organism
+      resource: Organism
+    type: OrganSystem
+    user_key: name
+  Organism:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: species
+    - name: id
+    description: Represents different organisms in a database, such as animals or
+      humans.
+    info_list: Represents different organisms in a database, such as animals or humans.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - organism_id
+      name: BoneList
+      resource: Bone
+    - direction: tomany
+      fks:
+      - organism_id
+      name: LimbList
+      resource: Limb
+    - direction: tomany
+      fks:
+      - organism_id
+      name: OrganSystemList
+      resource: OrganSystem
+    - direction: tomany
+      fks:
+      - organism_id
+      name: TissueList
+      resource: Tissue
+    type: Organism
+    user_key: name
+  SenseOrgan:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: nerve_id
+    - name: sensitivity
+    - name: id
+    description: Represents sense organs linked to nerve systems.
+    info_list: Represents sense organs linked to nerve systems.
+    tab_groups:
+    - direction: toone
+      fks:
+      - nerve_id
+      name: nerve
+      resource: Nerve
+    type: SenseOrgan
+    user_key: name
+  Tissue:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: organism_id
+    - name: Type
+    - name: coverage_area
+    description: Represents various tissue types in organisms.
+    info_list: Represents various tissue types in organisms.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - tissue_id
+      name: CellList
+      resource: Cell
+    - direction: toone
+      fks:
+      - organism_id
+      name: organism
+      resource: Organism
+    type: Tissue
+    user_key: id
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'

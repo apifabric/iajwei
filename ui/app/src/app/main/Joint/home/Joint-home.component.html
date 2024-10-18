@@ -1,0 +1,51 @@
+<o-form-layout-manager attr="Joint" mode="tab" title="JOINT">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="JointTable" 
+            service="Joint" 
+            entity="Joint" 
+            title="JOINT"
+            keys="id"
+            columns="id;connecting_bone_1_id;connecting_bone_2_id;Type" 
+            header-actions="R;D"
+            visible-columns="id;connecting_bone_1_id;connecting_bone_2_id;Type"  
+            sort-columns="id" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-column attr="connecting_bone_1_id" title="connecting_bone_1_id">
+    <o-table-cell-renderer-service attr="connecting_bone_1_id" 
+        service="Bone" entity="BoneType" columns="id;name"
+        parent-keys="id:connecting_bone_1_id"
+        value-column="name" keys="connecting_bone_1_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column attr="connecting_bone_2_id" title="connecting_bone_2_id">
+    <o-table-cell-renderer-service attr="connecting_bone_2_id" 
+        service="Bone" entity="BoneType" columns="id;name"
+        parent-keys="id:connecting_bone_2_id"
+        value-column="name" keys="connecting_bone_2_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column #Type attr="Type" title="Type" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

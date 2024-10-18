@@ -1,0 +1,224 @@
+<div class="container">
+<o-form-container breadcrumb="yes" breadcrumb-label-columns="name" breadcrumb-separator=", " class="fill-form">
+      <o-form #form attr="Organism_form_edit" 
+        service="Organism" 
+        entity="Organism" 
+        fxLayout="column" 
+        show-header="yes" 
+        header-actions="R;I;U;D"
+        #oDetailForm keys="id" 
+        keys-sql-types="INTEGER" 
+        show-header-navigation="yes"
+        (onDataLoaded)="onDataLoaded($event)">
+
+  <o-row attr="row1" layout-align="start stretch">
+    <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex fxLayoutGap="14px">
+      
+      <o-text-input #name attr="name" label=" name*" enabled="yes" required="yes" fxFlex="20%" class="form-field"></o-text-input>
+      
+      <o-text-input #species attr="species" label="species" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+      <o-integer-input #id attr="id" label="id" type="integer" editable="no" required="no" ></o-integer-input>
+      
+    </div>
+  </o-row>
+      
+      <mat-tab-group fxFill>
+        
+        <mat-tab label="BONE-organism_id">
+    <div layout-padding>
+      <o-table 
+        attr="BoneTable" 
+        service="Bone" 
+        entity="Bone" 
+        keys="id"
+        parent-keys="organism_id:id"
+        columns="name;organism_id;length;id"  
+        horizontal-scroll="yes"
+        detail-form-route="Bone" 
+        edit-form-route="Bone"
+        visible-columns="name;organism_id;length;id"  
+        sort-columns="name" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #name attr="name" title=" name*" editable="no" required="yes" content-align="left"></o-table-column>
+        
+          <o-table-column attr="organism_id" title="organism_id">
+    <o-table-cell-renderer-service attr="organism_id" 
+        service="Organism" entity="OrganismType" columns="id;name"
+        parent-keys="id:organism_id"
+        value-column="name" keys="organism_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #length attr="length" title="length" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+        
+          <o-table-column #id attr="id" title="id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+        <mat-tab label="LIMB-organism_id">
+    <div layout-padding>
+      <o-table 
+        attr="LimbTable" 
+        service="Limb" 
+        entity="Limb" 
+        keys="id"
+        parent-keys="organism_id:id"
+        columns="name;organism_id;strength;id"  
+        horizontal-scroll="yes"
+        detail-form-route="Limb" 
+        edit-form-route="Limb"
+        visible-columns="name;organism_id;strength;id"  
+        sort-columns="name" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #name attr="name" title=" name*" editable="no" required="no" content-align="left"></o-table-column>
+        
+          <o-table-column attr="organism_id" title="organism_id">
+    <o-table-cell-renderer-service attr="organism_id" 
+        service="Organism" entity="OrganismType" columns="id;name"
+        parent-keys="id:organism_id"
+        value-column="name" keys="organism_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #strength attr="strength" title="strength" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+        
+          <o-table-column #id attr="id" title="id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+        <mat-tab label="ORGANSYSTEM-organism_id">
+    <div layout-padding>
+      <o-table 
+        attr="OrganSystemTable" 
+        service="OrganSystem" 
+        entity="OrganSystem" 
+        keys="id"
+        parent-keys="organism_id:id"
+        columns="name;organism_id;function;id"  
+        horizontal-scroll="yes"
+        detail-form-route="OrganSystem" 
+        edit-form-route="OrganSystem"
+        visible-columns="name;organism_id;function;id"  
+        sort-columns="name" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #name attr="name" title=" name*" editable="no" required="no" content-align="left"></o-table-column>
+        
+          <o-table-column attr="organism_id" title="organism_id">
+    <o-table-cell-renderer-service attr="organism_id" 
+        service="Organism" entity="OrganismType" columns="id;name"
+        parent-keys="id:organism_id"
+        value-column="name" keys="organism_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #function attr="function" title="function" editable="no" required="no" content-align="left"></o-table-column>
+        
+          <o-table-column #id attr="id" title="id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+        <mat-tab label="TISSUE-organism_id">
+    <div layout-padding>
+      <o-table 
+        attr="TissueTable" 
+        service="Tissue" 
+        entity="Tissue" 
+        keys="id"
+        parent-keys="organism_id:id"
+        columns="id;organism_id;Type;coverage_area"  
+        horizontal-scroll="yes"
+        detail-form-route="Tissue" 
+        edit-form-route="Tissue"
+        visible-columns="id;organism_id;Type;coverage_area"  
+        sort-columns="id" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+          <o-table-column attr="organism_id" title="organism_id">
+    <o-table-cell-renderer-service attr="organism_id" 
+        service="Organism" entity="OrganismType" columns="id;name"
+        parent-keys="id:organism_id"
+        value-column="name" keys="organism_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #Type attr="Type" title="Type" editable="no" required="no" content-align="left"></o-table-column>
+        
+          <o-table-column #coverage_area attr="coverage_area" title="coverage_area" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+      </mat-tab-group>
+      
+    </o-form>
+  </o-form-container>
+</div>

@@ -1,0 +1,101 @@
+// Copy this text, paste to https://dbdiagram.io/d
+// Or, https://databasediagram.com/app
+
+Table BloodVessel {
+    id INTEGER [primary key]
+    Type VARCHAR 
+    diameter FLOAT 
+    organ_id INTEGER 
+    }
+
+Table Organ {
+    id INTEGER [primary key]
+    name VARCHAR 
+    size FLOAT 
+    system_id INTEGER 
+    }
+
+Table Bone {
+    id INTEGER [primary key]
+    name VARCHAR 
+    length FLOAT 
+    organism_id INTEGER 
+    }
+
+Table Organism {
+    id INTEGER [primary key]
+    name VARCHAR 
+    species VARCHAR 
+    }
+
+Table Cell {
+    id INTEGER [primary key]
+    Type VARCHAR 
+    function VARCHAR 
+    tissue_id INTEGER 
+    }
+
+Table Tissue {
+    id INTEGER [primary key]
+    Type VARCHAR 
+    coverage_area FLOAT 
+    organism_id INTEGER 
+    }
+
+Table Joint {
+    id INTEGER [primary key]
+    Type VARCHAR 
+    connecting_bone_1_id INTEGER 
+    connecting_bone_2_id INTEGER 
+    }
+
+Table Limb {
+    id INTEGER [primary key]
+    name VARCHAR 
+    strength FLOAT 
+    organism_id INTEGER 
+    }
+
+Table Muscle {
+    id INTEGER [primary key]
+    name VARCHAR 
+    strength FLOAT 
+    bone_id INTEGER 
+    }
+
+Table Nerve {
+    id INTEGER [primary key]
+    name VARCHAR 
+    path VARCHAR 
+    organ_id INTEGER 
+    }
+
+Table OrganSystem {
+    id INTEGER [primary key]
+    name VARCHAR 
+    function VARCHAR 
+    organism_id INTEGER 
+    }
+
+Table SenseOrgan {
+    id INTEGER [primary key]
+    name VARCHAR 
+    sensitivity FLOAT 
+    nerve_id INTEGER 
+    }
+
+
+
+// Relationships
+    Ref: BloodVessel.(organ_id) < Organ.(id)
+    Ref: Organ.(system_id) < OrganSystem.(id)
+    Ref: Bone.(organism_id) < Organism.(id)
+    Ref: Cell.(tissue_id) < Tissue.(id)
+    Ref: Tissue.(organism_id) < Organism.(id)
+    Ref: Joint.(connecting_bone_1_id) < Bone.(id)
+    Ref: Joint.(connecting_bone_2_id) < Bone.(id)
+    Ref: Limb.(organism_id) < Organism.(id)
+    Ref: Muscle.(bone_id) < Bone.(id)
+    Ref: Nerve.(organ_id) < Organ.(id)
+    Ref: OrganSystem.(organism_id) < Organism.(id)
+    Ref: SenseOrgan.(nerve_id) < Nerve.(id)
